@@ -1,0 +1,34 @@
+flag=true                                                                 
+                                                                          
+num=$1                                                                    
+                                                                          
+if [ "$num" = "" ]                                                        
+then                                                                      
+    read -p "please input a number:" num                                  
+fi                                                                        
+                                                                          
+while $flag                                                               
+do                                                                        
+  len=`echo "$num"|sed 's/[0-9]//g'`                                      
+  [ -z $len ] && flag=false || read -p "please input a integer:" num      
+done                                                                      
+                                                                          
+if [ ! $num ]; then                                                       
+  echo "IS NULL"                                                          
+else                                                                      
+  /etc/init.d/mia stop                                            
+  atrm $( atq -q L | awk '{ print $1 }' )                                 
+  at -f start.sh -q L now+"$num"min                                          
+tnow=`date '+%s'`                                                         
+t=`expr $tnow + $num \* 60`                                               
+echo $t >f                                                                
+echo time now is :                                                        
+date                                                                      
+fi                                                                        
+# inotifywait -q -m -e close_write --format %e f2 |                         
+# while read events; do                                                     
+#  cat f2                                                                  
+# done &                                                                    
+#if [ ! $num ]; then                                                      
+#echo "$num"                                                              
+#fi
