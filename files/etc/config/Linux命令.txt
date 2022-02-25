@@ -1,0 +1,35 @@
+查看系统用户
+awk -F':' '{ print $1}' /etc/passwd
+compgen -u
+
+建立新用户
+sudo useradd -r -m -s /bin/bash dongyuanxin_2016150127
+
+-r：建立系统账号
+-m：自动建立用户的登入目录
+-s：指定用户登入后所使用的shell
+
+在 Ubuntu18.04 中，不会在创建用户的时候自动提示设置密码。需要手动执行：sudo passwd dongyuanxin_2016150127。来设置新用户的密码。
+
+sudo chmod +w /etc/sudoers
+sudo vim /etc/sudoers
+# 添加下图的配置语句，并且保存修改
+sudo chmod -w /etc/sudoers
+
+/etc/rc.d/rc.local
+usermod -a -G groupA user
+nano /etc/apt/sources.list
+gdlionking ALL=(ALL:ALL) ALL         
+
+查看文件夹大小
+du -h --max-depth=1
+df -h
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
+
+
+ ./scripts/diffconfig.sh > diffconfig
+grep ^C diffconfig | awk '{print $0}'
+grep ^# diffconfig | awk '{print $0}'
+grep ^# diffconfig | awk '{print $0}' >1"
+ 
+ sed -i '/^#/d;/^$/d' diffconfig
